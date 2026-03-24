@@ -102,3 +102,98 @@ If you encounter any issues:
 ## Note
 
 This tool is designed for Windows systems only. For other operating systems, please refer to the main README.md file. 
+
+# AugmentCode - Linux Support Scripts
+
+This repository now includes community-contributed Linux scripts designed to offer similar functionality to the Windows reset tools provided by AugmentCode.
+
+## 📂 Linux Scripts Location
+
+You can find the Linux-specific scripts inside the `linux/` folder:
+
+* `id_modifier.sh`: Regenerates the `machineId` and `devDeviceId` in the VSCode storage database.
+* `clean_code_db.sh`: Removes all AugmentCode-related telemetry from VSCode's internal SQLite database.
+
+---
+
+## 🔧 Requirements
+
+* `bash`
+* `sqlite3`
+* `jq` (for JSON parsing)
+* `VSCode` installed either natively or via Flatpak
+
+---
+
+## ⚠️ Warning
+
+* Both scripts **modify internal storage and telemetry files**. Use at your own risk.
+* **Backups are automatically created**, but please verify before running in critical environments.
+
+---
+
+## 🛠 How to Use
+
+### 1. Clone this repository:
+
+```bash
+git clone https://github.com/VodenoFF/augmentcode-trial.git
+cd augmentcode-trial/linux
+```
+
+### 2. Make scripts executable:
+
+```bash
+chmod +x id_modifier.sh clean_code_db.sh
+```
+
+### 3. Run the desired script:
+
+#### Reset device ID:
+
+```bash
+./id_modifier.sh
+```
+
+#### Clean AugmentCode entries:
+
+```bash
+./clean_code_db.sh
+```
+
+---
+
+## 🧠 What They Do
+
+### `id_modifier.sh`
+
+* Detects if VSCode is installed via Flatpak or system-wide.
+* Locates the correct `storage.json` file.
+* Generates new UUIDs for `machineId` and `devDeviceId`.
+* Creates a backup before making changes.
+
+### `clean_code_db.sh`
+
+* Locates VSCode's internal SQLite database (`state.vscdb`).
+* Searches for entries related to `augmentcode`.
+* Deletes them safely.
+* Handles Flatpak and system installations.
+
+---
+
+## ✅ Tested On
+
+* Ubuntu 25.04 (GNOME)
+* Flatpak & .deb versions of VSCode
+
+---
+
+## 🙌 Contribution
+
+These Linux scripts were contributed by [@quirxsama](https://github.com/quirxsama). PRs to improve compatibility with other distros or package managers are welcome!
+
+---
+
+## 📜 License
+
+Same license as the main project (MIT).
